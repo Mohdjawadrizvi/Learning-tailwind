@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Tailwind Modal</title>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-100">
+
+    <!-- Open Modal Button -->
+    <button onclick="openModal()" class="px-4 py-2 bg-blue-600 text-white rounded-md">Open Profile</button>
+
+    <!-- Modal Background (Initially Hidden) -->
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden ">
+        <!-- Modal Box -->
+        <div class="bg-white p-6 rounded-lg shadow-lg w-2/3 h-100 relative ">
+            
+         
+           
+                <button onclick="closeModal()" class="absolute top-2 right-2 mb-1 ml-2  text-gray-500 hover:text-gray-700">
+                 ✖
+                 </button>
+           
+
+            <!-- Profile Section -->
+            <div class="flex items-center space-x-6 border-b pb-4 mb-8">
+                <div class="w-24 mb-8 h-24 ">  
+                    <img id="profileImage" class="w-full h-full rounded-full border-4 border-blue-500 shadow-lg" src="../HRM jawad/assets/images/profile.png" alt="Profile Picture">
+                    <input type="file" id="imageUpload" class="hidden" accept="image/*" onchange="previewImage(event)">
+                    <div class="flex space-x-2 mt-2">
+                        <button onclick="document.getElementById('imageUpload').click()" class="bg-blue-500 text-white px-3 py-1 rounded-full text-xs shadow-md">✏️</button>
+                    </div>
+                    
+                </div>
+                <div>
+                    <h2 class="text-2xl font-semibold text-gray-800">User Profile</h2>
+                    <p class="text-gray-600">Manage your profile information</p>
+                </div>
+            </div>
+
+            <!-- Profile Form -->
+            <form class="mt-4 space-y-4 ">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-700">First Name</label>
+                        <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter first name">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700">Last Name</label>
+                        <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter last name">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-700">Email Address</label>
+                        <input type="email" pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"  class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter email address">
+                    </div>
+                    <div>
+                        <label class="text-gray-700 font-medium">Phone Number</label>
+                        <div class="flex border border-gray-300 rounded-lg">
+                            <!-- Country Code Dropdown -->
+                            <select id="countryCode" class="bg-gray-200  border-r border-gray-200 px-3 py-2 rounded-l-lg focus:outline-none" onchange="updatePhonePrefix()">
+                                <option value="+91"> India (+91)</option>
+                                <option value="+1">USA (+1)</option>
+                                <option value="+44"> UK (+44)</option>
+                                <option value="+61"> Australia (+61)</option>
+                                <option value="+81">Japan (+81)</option>
+                                <option value="+49"> Germany (+49)</option>
+                            </select>
+                            <!-- Phone Number Input -->
+                            <input id="phoneNumber" type="text" class="w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-r-lg" placeholder="Enter phone number" oninput="validatePhoneNumber()">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-700">Country</label>
+                        <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your country">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700">State</label>
+                        <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your state">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-gray-700">Bio</label>
+                    <textarea class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Write about yourself..."></textarea>
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 shadow-md">Save Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal Open Function
+        function openModal() {
+            document.getElementById("modal").classList.remove("hidden");
+        }
+
+        // Modal Close Function
+        function closeModal() {
+            document.getElementById("modal").classList.add("hidden");
+        }
+
+        // Preview Selected Image
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var output = document.getElementById('profileImage');
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
+</body>
+</html>
